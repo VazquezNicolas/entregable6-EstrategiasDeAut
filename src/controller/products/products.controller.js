@@ -11,6 +11,8 @@ router.get('/',async (req,res)=>{
     let limit = req.query.limit
     let filtro = req.query.filtro
     let page = parseInt(req.query.page);
+    let name = false
+    const {user} = req.session
 
     if(!limit) limit = 10
     if(!page) page=1;
@@ -20,9 +22,18 @@ router.get('/',async (req,res)=>{
          result.status = "succes"
          result.prevLink = result.hasPrevPage?`http://localhost:3000/api/products?limit=${limit}&page=${result.prevPage}`:'';
          result.nextLink = result.hasNextPage?`http://localhost:3000/api/products?limit=${limit}&page=${result.nextPage}`:'';
-         result.isValid= !(page<=0||page>result.totalPages)
-         res.render('products',result)
-         console.log(result)
+         result.isValid = !(page<=0||page>result.totalPages)
+        if(user) name = true
+        console.log(user)
+
+         res.render('products', {
+            docs: result.docs,
+            result: result,
+            name,
+            user,
+            isValid: result.isValid
+         })
+        
     } else {
         let result = await Products.paginate({category: `${filtro}`},{page,limit,lean:true,})
         result.status = "succes"
@@ -31,8 +42,7 @@ router.get('/',async (req,res)=>{
         result.isValid= !(page<=0||page>result.totalPages)
         res.render('products',result)
         console.log(result)
-    }
-        
+    }     
 })
 
 router.get('/loadData', async (req,res) => {

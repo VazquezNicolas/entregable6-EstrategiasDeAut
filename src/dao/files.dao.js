@@ -2,7 +2,7 @@ const fs = require('fs')
 
 class FilesDao {
     constructor(file) {
-        this.file = process.cwd () + `/src/files/${file}`
+        this.file = process.cwd () + `/src/dao/files/${file}`
     }
 
     async getItemsDao(){

@@ -10,11 +10,19 @@ const cartFile = new FilesDao('products.json')
 //Mostrar todos los carritos
 router.get('/', async (req,res) => {
     try {
-        const cart = await Carts.find().populate("products.product")
-        res.json(cart)
-
+        const cart = await Carts.findOne().populate("products.product")
+        const productos = (cart.products)
+        console.log(cart)
+        
+        console.log(productos)
+        res.render('carts', {
+            cart,
+            title: cart._id,
+            productos: productos
+        })
     } catch (error) {
         res.status(400).json({status: 'error', error})
+        console.log(error)
     }
 })
 
@@ -23,7 +31,7 @@ router.get('/', async (req,res) => {
 router.put('/:cid/products/:pid', async (req,res) => {
     try {
     const {cid, pid} = req.params
-    const {quantity} = req.body
+
     let i = 0
     let encontro = 0
     

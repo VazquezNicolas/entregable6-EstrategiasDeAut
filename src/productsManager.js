@@ -8,6 +8,7 @@ class ProductManager {
         this.id = 0;
     }
 
+    
     addCart(){
         let cart = ({
             id:this.id,

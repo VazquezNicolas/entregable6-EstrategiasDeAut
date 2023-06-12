@@ -1,27 +1,41 @@
+{{#if name}}
+<h2>Bienvenido {{user.first_name}} {{user.last_name}}</h2>
+<h2>tu rol es: {{user.rol}}</h2>
+<button type="reset" id="logOut">Logout</button>
+    {{else}}
+    <h1>No se encontro usuario</h1>
+{{/if}}
+
 {{#if isValid}}
-<div>
-    {{#each docs}}
+    <h1>Productos</h1>
     <div>
-        <p>Producto: {{this.title}} &nbsp; Descripcion: {{this.description}}</p>
-        <p>Categoria: {{this.category}} &nbsp; Precio: {{this.price}} &nbsp; Id: {{this._id}}</p>
-        <button type="submit">Agregar al carrito</button>
+        {{#each docs}}
+    
+        <div>
+            <p>Producto: {{this.title}} &nbsp; Descripcion: {{this.description}}</p>
+            <p>Categoria: {{this.category}} &nbsp; Precio: {{this.price}} &nbsp; Id: {{this._id}}</p>
+            <button type="hola">Agregar al carrito</button>
+        </div>
+        <br/>
+        <br/>
+        {{/each}}
     </div>
     <br/>
-    <br/>
-    {{/each}}
-</div>
-<br/>
-<div>
-    {{#if hasPrevPage}}
-        <a href={{this.prevLink}}><< Anterior</a>
-    {{/if}}
-    &nbsp;
-    {{this.page}}
-    &nbsp;
-     {{#if hasNextPage}}
-        <a href={{this.nextLink}}>Siguiente >></a>
-    {{/if}} 
-</div>
-{{else}}
-<h1>No hay productos para mostrar</h1>
+    <div>
+        {{#if hasPrevPage}}
+            <a href={{this.prevLink}}> < Anterior</a>
+        {{/if}}
+        &nbsp;
+        {{this.page}}
+        &nbsp;
+        {{#if hasNextPage}}
+            <a href={{this.nextLink}}>Siguiente> </a>
+        {{/if}} 
+    </div>
+    {{else}}
+    <h1>No hay productos para mostrar</h1>
 {{/if}}
+
+<script src="/js/logout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
